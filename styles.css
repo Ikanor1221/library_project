@@ -1,0 +1,51 @@
+:root {
+
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    /* font: inherit; */
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 170px 1fr;
+}
+
+body > * {
+    border: solid;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 1fr;
+}
+
+main > * {
+    border: solid;
+}
+
+.book-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 300px;
+    gap: 20px;
+    padding: 20px;
+}
+
+.book-display > * {
+    border: solid;
+    overflow: auto;
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 10px;
+    padding: 10px;
+    align-content: start;
+    /* white-space: nowrap; */
+}
