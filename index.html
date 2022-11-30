@@ -7,6 +7,8 @@
     <title>Library</title>
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link rel="icon" type="image/png" href="https://www.flaticon.com/svg/static/icons/svg/1164/1164682.svg"> -->
 </head>
 <body>
     <header></header>
@@ -14,11 +16,17 @@
         <div class="settings"></div>
         <div class="book-display">
             <div>
-                <h3 id="title">Book 1: Story of Fire and Ice and Stuff</h3>
-                <span>By: <span id="author"></span></span>
-                <span>Number of pages: <span id="pages"></span></span>
-                <span>Language: <span id="language"></span></span>
-                <span>Published: <span id="pubYear"></span></span>
+                <button class="close"><span class="material-icons remove-book"> close </span></button>
+                <h3 id="title">Book of Knowledge: Story of Fire and Ice and Stuff</h3>
+                <p>By: <span id="author">Ilia Bochkov</span></p>
+                <p>Number of pages: <span id="pages">200</span></p>
+                <p>Language: <span id="language">English</span></p>
+                <p>Published: <span id="pubYear">1997</span></p>
+                <div class="reading-state">
+                    <label for="reading-input"></label>
+                    <input type="checkbox" id="reading-input">
+                    <span class="control"></span>
+                </div>
             </div>
             <div></div>
             <div></div>
@@ -36,4 +44,3 @@
         </div>
     </main>
 </body>
-</html>

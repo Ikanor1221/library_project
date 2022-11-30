@@ -10,6 +10,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
+button {
+    background-color: inherit;
+    border: none;
+}
+
 body {
     display: grid;
     min-height: 100vh;
@@ -34,18 +39,40 @@ main > * {
 .book-display {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 300px;
+    grid-auto-rows: minmax(200px, auto);
     gap: 20px;
     padding: 20px;
 }
 
 .book-display > * {
     border: solid;
-    overflow: auto;
     display: grid;
     grid-auto-rows: auto;
     gap: 10px;
-    padding: 10px;
+    padding: 15px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     align-content: start;
-    /* white-space: nowrap; */
+    position: relative;
+}
+
+.book-display > * > *{
+    overflow-wrap: break-word;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto; 
+    hyphens: auto; 
+    overflow: hidden;
+}
+
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.reading-state {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
 }
