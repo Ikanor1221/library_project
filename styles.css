@@ -1,5 +1,7 @@
 :root {
 
+    font-size: 16px;
+
 }
 
 * {
@@ -8,6 +10,7 @@
     /* font: inherit; */
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
 }
 
 button {
@@ -34,6 +37,10 @@ main {
 
 main > * {
     border: solid;
+}
+
+h3 {
+    font-size: 1.5rem;
 }
 
 .book-display {
@@ -128,4 +135,51 @@ main > * {
 
 input:checked ~ .control::after {
     left: 21px;
+}
+
+.settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 10px;
+}
+
+.order {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-self: start;
+    /* grid-template-columns: auto auto auto; */
+}
+
+.order legend {
+    float: left;
+}
+
+.map {
+    justify-self: end;
+    display: grid;
+    grid-template-columns: 60px auto 60px auto;
+    grid-template-rows: 50px;
+    gap: 5px;
+    /* align-items: center; */
+}
+
+.map * {
+    display: flex;
+    align-items: center;
+}
+
+.color {
+    margin-left: 10px;
+}
+
+.read_color {
+    background-color: greenyellow;
+    border: solid 1px black;
+}
+
+.not_read_color {
+    background-color: red;
+    border: solid 1px black;
 }

@@ -13,7 +13,25 @@
 <body>
     <header></header>
     <main>
-        <div class="settings"></div>
+        <div class="settings">
+            <fieldset class="order">
+                <legend>Order By: </legend>
+                <select name="order_by" id="order_by">
+                    <option value="insertion_date" selected>Insertion date</option>
+                    <option value="publishing_date">Publishing date</option>
+                </select>
+                <select name="order" id="order">
+                    <option value="ascending" selected>Ascending</option>
+                    <option value="descending">Descending</option>
+                </select>      
+            </fieldset>
+            <div class="map">
+                <div class="color read_color"></div>
+                <h4>Read</h4>
+                <div class="color not_read_color"></div>
+                <h4>Not Read</h4>
+            </div>
+        </div>
         <div class="book-display">
             <div>
                 <button class="close"><span class="material-icons remove-book"> close </span></button>
