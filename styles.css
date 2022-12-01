@@ -69,10 +69,63 @@ main > * {
     position: absolute;
     top: 5px;
     right: 10px;
+    cursor: pointer;
+    scale: 0.8;
+    opacity: 0.7;
+    transition: 0.25s;
+
+}
+
+.close:hover {
+    opacity: 1.2;
+    transform: scale(1.2) rotate(90deg);
 }
 
 .reading-state {
     position: absolute;
     bottom: 5px;
     right: 10px;
+}
+
+
+.reading-state input {
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.reading-state label {
+    cursor: pointer;
+}
+
+.control {
+    display: inline-block;
+    margin-top: 2px;
+    /* position: absolute;
+    top: 0;
+    right: 0; */
+    vertical-align: bottom;
+    height: 20px;
+    width: 40px;
+    background-color: gray;
+    border: solid 1px black;
+    border-radius: 10px;
+    position: relative;
+}
+
+.control::after {
+    display: inline-block;
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background-color: red;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    transition: left 0.15s ease-in;
+}
+
+input:checked ~ .control::after {
+    left: 21px;
 }
