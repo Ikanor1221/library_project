@@ -1,7 +1,7 @@
 :root {
 
     font-size: 16px;
-    --read-color: linear-gradient(135deg, rgba(24, 77, 104, 0.8) 0%, rgba(87, 202, 133, 0.8) 100%);;
+    --read-color: linear-gradient(135deg, rgba(24, 77, 104, 0.8) 0%, rgba(67, 167, 107, 0.8) 100%);;
     --not-read-color: linear-gradient(135deg, #e3e3e3 20%, #5d6874 100%);
     --secondary-color: #f2f2f2;
     /* --log-color: rgba(24, 77, 104, 0.8); */
@@ -100,6 +100,7 @@ h4 {
     background: var(--not-read-color);
 }
 
+
 .book-display > div > *{
     overflow-wrap: break-word;
     -ms-hyphens: auto;
@@ -184,6 +185,12 @@ input:checked ~ .control::after {
     background: var(--secondary-color);
 
 }
+
+.book-display .read {
+    background: var(--read-color);
+    color: var(--secondary-color);
+}
+
 
 .order {
     display: flex;
