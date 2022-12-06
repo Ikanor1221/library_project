@@ -284,3 +284,78 @@ header {
 .library_log * {
     font-weight: 200;
 }
+
+.book_adder_section{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    /* background-color: blrgba(0, 0, 0, 0.5); */
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book_adder {
+    background-color: white;
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: max-content;
+    /* max-width: 100vw; */
+    width: min(500px, 100vw);
+    height: auto;
+    border: solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 22px;
+}
+
+.book_adder > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.book_adder > div * {
+    font-size: 1.3rem;
+}
+
+
+.book_adder input,
+.book_adder select {
+    height: 35px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px black;
+    padding: 5px;
+}
+
+.book_adder > .form_buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.form_buttons button {
+    border: solid 1px black;;
+    height: 50px;
+    padding: 10px;
+}
+
+.form_buttons button:hover {
+    background-color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.add_button{
+    flex: 1;
+}

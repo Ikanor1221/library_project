@@ -13,6 +13,43 @@
     <!-- <link rel="icon" type="image/png" href="https://www.flaticon.com/svg/static/icons/svg/1164/1164682.svg"> -->
 </head>
 <body>
+    <div class="book_adder_section">
+        <form action="" class="book_adder" id="book_adder">
+            <h2 class="form_title">Add Book</h2>
+            <div>
+                <label for="book_title">Book title*</label>
+                <input type="text" name="book_title" id="book_title">
+            </div>
+            <div>
+                <label for="book_author">Book author*</label>
+                <input type="text" name="book_author" id="book_author">
+            </div>
+            <div>
+                <label for="book_number_of_pages">Number of pages*</label>
+                <input type="number" name="book_number_of_pages" id="book_number_of_pages">
+            </div>
+            <div>
+                <label for="book_language">Language*</label>
+                <input type="text" name="book_language" id="book_language">
+            </div>
+            <div>
+                <label for="book_publishing_date">Publishing date*</label>
+                <input type="date" name="book_publishing_date" id="book_publishing_date">
+            </div>
+            <div>
+                <label for="book_status">Book status*</label>
+                <select name="book_status" id="book_status">
+                    <option value="null" disabled selected>Have you read this book?</option>
+                    <option value="null"> I have already read it</option>
+                    <option value="null">I have not yet read it</option>
+                </select>
+            </div>
+            <div class="form_buttons">
+                <button class="add_button" id="add">Add</button>
+                <button class="clear_button" id="clear">Clear fields</button>
+            </div>
+        </form>
+    </div>
     <button class="add_book">+</button>
     <header>
         <div class="logo">
@@ -50,51 +87,6 @@
             </div>
         </div>
         <div class="book-display">
-            <!-- <div class="book" id="book1">
-                <button class="close"><span class="material-icons remove-book"> close </span></button>
-                <h4 id="title">Book of Knowledge: Story of Fire and Ice and Stuff</h4>
-                <p>By: <span id="author">Ilia Bochkov</span></p>
-                <p>Number of pages: <span id="pages">200</span></p>
-                <p>Language: <span id="language">English</span></p>
-                <p>Published: <span id="pubYear">1997</span></p>
-                <div class="reading-state">
-                    <span>Mark as read: </span>
-                    <label for="reading-input1">
-                        <input type="checkbox" class="read_checkbox" id="reading-input1">
-                        <span class="control"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="book" id="book2">
-                <button class="close"><span class="material-icons remove-book"> close </span></button>
-                <h4 id="title">Book of Knowledge: Story of Fire and Ice and Stuff</h4>
-                <p>By: <span id="author">Ilia Bochkov</span></p>
-                <p>Number of pages: <span id="pages">200</span></p>
-                <p>Language: <span id="language">English</span></p>
-                <p>Published: <span id="pubYear">1997</span></p>
-                <div class="reading-state">
-                    <span>Mark as read: </span>
-                    <label for="reading-input2">
-                        <input type="checkbox" class="read_checkbox" id="reading-input2">
-                        <span class="control"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="book read" id="book3">
-                <button class="close"><span class="material-icons remove-book"> close </span></button>
-                <h4 id="title">Book of Knowledge: Story of Fire and Ice and Stuff</h4>
-                <p>By: <span id="author">Ilia Bochkov</span></p>
-                <p>Number of pages: <span id="pages">200</span></p>
-                <p>Language: <span id="language">English</span></p>
-                <p>Published: <span id="pubYear">1997</span></p>
-                <div class="reading-state">
-                    <span>Mark as read: </span>
-                    <label for="reading-input3">
-                        <input checked type="checkbox" class="read_checkbox" id="reading-input3">
-                        <span class="control read"></span>
-                    </label>
-                </div>
-            </div> -->
         </div>
     </main>
 </body>

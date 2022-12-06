@@ -1,11 +1,4 @@
 
-
-// document.querySelectorAll('.some-class').forEach(item => {
-//     item.addEventListener('click', event => {
-//       //handle click
-//     })
-//   })
-
 function Book(title, author, pages, language, year, read) {
     this.title = title;
     this.author = author;
@@ -13,15 +6,16 @@ function Book(title, author, pages, language, year, read) {
     this.language = language;
     this.year = year;
     this.read = read;
-    // this.bookNumber = bookNumber;
 }
 
 Book.prototype.generateHTML = function(bookNumber) {
     console.log(this.read)
     let read = "";
-    this.read ? read = "checked" : "";
+    let checked = "";
+    this.read ? checked = "checked" : "";
+    this.read ? read = "read" : "";
     const book_html_template = `
-    <div class="book" id="book${bookNumber}">
+    <div class="book ${read}" id="book${bookNumber}">
         <button class="close"><span class="material-icons remove-book"> close </span></button>
         <h4 id="title">${this.title}</h4>
         <p>By: <span id="author">${this.author}</span></p>
@@ -31,8 +25,8 @@ Book.prototype.generateHTML = function(bookNumber) {
         <div class="reading-state">
             <span>Mark as read: </span>
             <label for="reading-input${bookNumber}">
-                <input ${read} type="checkbox" class="read_checkbox" id="reading-input${bookNumber}">
-                <span class="control"></span>
+                <input ${checked} type="checkbox" class="read_checkbox" id="reading-input${bookNumber}">
+                <span class="control  ${read}"></span>
             </label>
         </div>
     </div>`;
@@ -51,12 +45,11 @@ BookShelf.prototype.addBookToLibrary = function(book) {
 BookShelf.prototype.renderBooks = function() {
 
     const display = document.querySelector('.book-display');
+    display.innerHTML = "";
     for (const book in this.initialBookCollection) {
         console.log(book)
         display.insertAdjacentHTML("beforeend", this.initialBookCollection[book].generateHTML(book))
-    }
-
-    
+    }    
 }
 
 
