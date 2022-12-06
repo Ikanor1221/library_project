@@ -4,14 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library</title>
-    <link rel="stylesheet" href="normalize.css">
+    <title>My Library</title>
+    <!-- <link rel="stylesheet" href="normalize.css"> -->
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <!-- <link rel="icon" type="image/png" href="https://www.flaticon.com/svg/static/icons/svg/1164/1164682.svg"> -->
 </head>
 <body>
-    <header></header>
+    <header>
+        <div class="logo">
+            <span class="material-icons-outlined">library_books</span>
+            <h1 class="logo_text">My Library</h1>
+        </div>
+        <div class="library_log">
+            <h2>Library Log</h2>
+            <h3>Total books count:</h3>
+            <h3><span id="books_count">3</span></h3>
+            <h3>Read:</h3>
+            <h3><span id="books_count">1</span></h3>
+            <h3>Not read:</h3>
+            <h3><span id="books_count">2</span></h3>
+        </div>
+    </header>
     <main>
         <div class="settings">
             <fieldset class="order">
@@ -27,15 +42,15 @@
             </fieldset>
             <div class="map">
                 <div class="color read_color"></div>
-                <h4>Read</h4>
+                <h3>Read</h3>
                 <div class="color not_read_color"></div>
-                <h4>Not Read</h4>
+                <h3>Not Read</h3>
             </div>
         </div>
         <div class="book-display">
             <div>
                 <button class="close"><span class="material-icons remove-book"> close </span></button>
-                <h3 id="title">Book of Knowledge: Story of Fire and Ice and Stuff</h3>
+                <h4 id="title">Book of Knowledge: Story of Fire and Ice and Stuff</h4>
                 <p>By: <span id="author">Ilia Bochkov</span></p>
                 <p>Number of pages: <span id="pages">200</span></p>
                 <p>Language: <span id="language">English</span></p>

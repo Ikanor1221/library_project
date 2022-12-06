@@ -39,9 +39,22 @@ main > * {
     border: solid;
 }
 
-h3 {
-    font-size: 1.5rem;
+h1 {
+    font-size: 3rem;
 }
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+}
+
+h4 {
+    font-size: 1.1rem;
+}
+
 
 .book-display {
     display: grid;
@@ -160,7 +173,7 @@ input:checked ~ .control::after {
     justify-self: end;
     display: grid;
     grid-template-columns: 60px auto 60px auto;
-    grid-template-rows: 50px;
+    grid-template-rows: 40px;
     gap: 5px;
     /* align-items: center; */
 }
@@ -182,4 +195,36 @@ input:checked ~ .control::after {
 .not_read_color {
     background-color: red;
     border: solid 1px black;
+}
+
+header {
+    display: flex;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-items: center;
+}
+
+.logo {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo span {
+    font-size: 4rem;
+}
+
+.library_log {
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    row-gap: 5px;
+}
+
+.library_log h2 {
+    grid-column: 1 / span 2;
+    text-align: center;
 }
