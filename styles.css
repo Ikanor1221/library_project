@@ -1,7 +1,10 @@
 :root {
 
     font-size: 16px;
-
+    --read-color: linear-gradient(135deg, rgba(24, 77, 104, 0.8) 0%, rgba(87, 202, 133, 0.8) 100%);;
+    --not-read-color: linear-gradient(135deg, #e3e3e3 20%, #5d6874 100%);
+    --secondary-color: #f2f2f2;
+    /* --log-color: rgba(24, 77, 104, 0.8); */
 }
 
 * {
@@ -25,18 +28,10 @@ body {
     grid-template-rows: 170px 1fr;
 }
 
-body > * {
-    border: solid;
-}
-
 main {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 100px 1fr;
-}
-
-main > * {
-    border: solid;
 }
 
 h1 {
@@ -64,8 +59,9 @@ h4 {
     padding: 20px;
 }
 
-.book-display > * {
-    border: solid;
+.book-display > div {
+    border: solid 1px var(--secondary-color);
+    border-radius: 10px;
     display: grid;
     grid-auto-rows: auto;
     gap: 10px;
@@ -74,9 +70,11 @@ h4 {
     padding-bottom: 30px;
     align-content: start;
     position: relative;
+    background: var(--not-read-color);
+    /* max-height: 600px; */
 }
 
-.book-display > * > *{
+.book-display > div > *{
     overflow-wrap: break-word;
     -ms-hyphens: auto;
     -webkit-hyphens: auto; 
@@ -128,7 +126,7 @@ h4 {
     height: 20px;
     width: 40px;
     background-color: gray;
-    border: solid 1px black;
+    border: solid 1px var(--secondary-color);
     border-radius: 10px;
     position: relative;
 }
@@ -139,7 +137,7 @@ h4 {
     width: 16px;
     height: 16px;
     border-radius: 8px;
-    background-color: red;
+    background-color: var(--secondary-color);
     position: absolute;
     left: 1px;
     top: 1px;
@@ -155,6 +153,10 @@ input:checked ~ .control::after {
     grid-template-columns: 1fr 1fr;
     align-items: center;
     padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background: var(--secondary-color);
+
 }
 
 .order {
@@ -162,7 +164,17 @@ input:checked ~ .control::after {
     gap: 5px;
     align-items: center;
     justify-self: start;
+    border: none;
     /* grid-template-columns: auto auto auto; */
+}
+
+.order * {
+    font-size: 1.2rem;
+    background-color: inherit;
+}
+
+select {
+    border-radius: 5px;
 }
 
 .order legend {
@@ -181,6 +193,7 @@ input:checked ~ .control::after {
 .map * {
     display: flex;
     align-items: center;
+    font-weight: 200;
 }
 
 .color {
@@ -188,13 +201,15 @@ input:checked ~ .control::after {
 }
 
 .read_color {
-    background-color: greenyellow;
-    border: solid 1px black;
+    background: var(--read-color);
+    /* border: solid 1px black; */
+    border-radius: 5px;
 }
 
 .not_read_color {
-    background-color: red;
-    border: solid 1px black;
+    background: var(--not-read-color);
+    /* border: solid 1px black; */
+    border-radius: 5px;
 }
 
 header {
@@ -222,9 +237,17 @@ header {
     grid-template-columns: auto auto;
     column-gap: 10px;
     row-gap: 5px;
+    border: solid 1px black;
+    /* background-color: var(--secondary-color); */
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .library_log h2 {
     grid-column: 1 / span 2;
     text-align: center;
+}
+
+.library_log * {
+    font-weight: 200;
 }
