@@ -5,6 +5,7 @@
     --not-read-color: linear-gradient(135deg, #e3e3e3 20%, #5d6874 100%);
     --secondary-color: #f2f2f2;
     /* --log-color: rgba(24, 77, 104, 0.8); */
+    --button-color: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
 }
 
 * {
@@ -21,11 +22,36 @@ button {
     border: none;
 }
 
+
+
 body {
     display: grid;
     min-height: 100vh;
     grid-template-columns: 1fr;
     grid-template-rows: 170px auto;
+    position: relative;
+}
+
+.add_book {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    font-size: 3rem;
+    background: var(--button-color);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary-color);
+    cursor: pointer;
+    scale: 0.8;
+    transition: 0.25s;
+}
+
+.add_book:hover {
+    transform: scale(1.2) rotate(90deg);
 }
 
 main {

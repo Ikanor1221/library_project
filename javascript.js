@@ -22,7 +22,7 @@ BookShelf.prototype.addBookToLibrary = function(book) {
 }
 
 BookShelf.prototype.renderBooks = function() {
-
+    
 }
 
 
