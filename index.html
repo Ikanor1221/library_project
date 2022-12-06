@@ -7,6 +7,7 @@
     <title>My Library</title>
     <!-- <link rel="stylesheet" href="normalize.css"> -->
     <link rel="stylesheet" href="styles.css">
+    <script defer src="javascript.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <!-- <link rel="icon" type="image/png" href="https://www.flaticon.com/svg/static/icons/svg/1164/1164682.svg"> -->
@@ -49,7 +50,7 @@
             </div>
         </div>
         <div class="book-display">
-            <div id="book1">
+            <div class="book" id="book1">
                 <button class="close"><span class="material-icons remove-book"> close </span></button>
                 <h4 id="title">Book of Knowledge: Story of Fire and Ice and Stuff</h4>
                 <p>By: <span id="author">Ilia Bochkov</span></p>
@@ -59,12 +60,12 @@
                 <div class="reading-state">
                     <span>Mark as read: </span>
                     <label for="reading-input1">
-                        <input type="checkbox" id="reading-input1">
+                        <input type="checkbox" class="read_checkbox" id="reading-input1">
                         <span class="control"></span>
                     </label>
                 </div>
             </div>
-            <div id="book2">
+            <div class="book" id="book2">
                 <button class="close"><span class="material-icons remove-book"> close </span></button>
                 <h4 id="title">Book of Knowledge: Story of Fire and Ice and Stuff</h4>
                 <p>By: <span id="author">Ilia Bochkov</span></p>
@@ -74,12 +75,12 @@
                 <div class="reading-state">
                     <span>Mark as read: </span>
                     <label for="reading-input2">
-                        <input type="checkbox" id="reading-input2">
+                        <input type="checkbox" class="read_checkbox" id="reading-input2">
                         <span class="control"></span>
                     </label>
                 </div>
             </div>
-            <div id="book3" class="read">
+            <div class="book read" id="book3">
                 <button class="close"><span class="material-icons remove-book"> close </span></button>
                 <h4 id="title">Book of Knowledge: Story of Fire and Ice and Stuff</h4>
                 <p>By: <span id="author">Ilia Bochkov</span></p>
@@ -89,7 +90,7 @@
                 <div class="reading-state">
                     <span>Mark as read: </span>
                     <label for="reading-input3">
-                        <input checked type="checkbox" id="reading-input3">
+                        <input checked type="checkbox" class="read_checkbox" id="reading-input3">
                         <span class="control read"></span>
                     </label>
                 </div>
