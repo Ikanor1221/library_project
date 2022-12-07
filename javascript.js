@@ -9,7 +9,6 @@ function Book(title, author, pages, language, year, read) {
 }
 
 Book.prototype.generateHTML = function(bookNumber) {
-    console.log(this.read)
     let read = "";
     let checked = "";
     this.read ? checked = "checked" : "";
@@ -47,9 +46,23 @@ BookShelf.prototype.renderBooks = function() {
     const display = document.querySelector('.book-display');
     display.innerHTML = "";
     for (const book in this.initialBookCollection) {
-        console.log(book)
         display.insertAdjacentHTML("beforeend", this.initialBookCollection[book].generateHTML(book))
     }    
+}
+
+BookShelf.prototype.renderLibraryLog = function(book) {
+    const totalBooks = document.querySelector('#books_total');
+    const booksRead = document.querySelector('#books_read');
+    const booksNotRead = document.querySelector('#books_not_read');
+    for (const book in this.initialBookCollection) {
+        totalBooks.innerHTML = Number(book) + 1;
+        if (this.initialBookCollection[book].read) {
+            booksRead.innerHTML = Number(booksRead.innerHTML) + 1;
+        }
+        else {
+            booksNotRead.innerHTML = Number(booksNotRead.innerHTML) + 1;
+        }
+    } 
 }
 
 
@@ -64,6 +77,8 @@ bookShelf.addBookToLibrary(book2);
 bookShelf.addBookToLibrary(book3);
 
 bookShelf.renderBooks();
+
+bookShelf.renderLibraryLog();
 
 ////
 
@@ -84,3 +99,18 @@ closeButtons.forEach(closeButton => {
     })
 })
 
+const addBookButton = document.querySelector('#add_book');
+const bookAdderSection = document.querySelector('.book_adder_section');
+
+
+addBookButton.addEventListener("click", e => {
+    bookAdderSection.classList.add("visible");      
+})
+
+
+const closeWindowButton = document.querySelector('#close_window');
+
+closeWindowButton.addEventListener("click", e => {
+    e.preventDefault();
+    bookAdderSection.classList.remove("visible");      
+})

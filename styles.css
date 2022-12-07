@@ -126,6 +126,7 @@ h4 {
     transform: scale(1.2) rotate(90deg);
 }
 
+
 .reading-state {
     position: absolute;
     bottom: 5px;
@@ -295,9 +296,18 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.25s;
+}
+
+.visible {
+    opacity: 1;
+    visibility: visible;
 }
 
 .book_adder {
+    position: relative;
     background-color: white;
     padding: 20px;
     padding-left: 50px;
@@ -358,4 +368,9 @@ header {
 
 .add_button{
     flex: 1;
+}
+
+.book_adder_section .close {
+    transition: none;
+    transform: scale(1.2);
 }

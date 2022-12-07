@@ -15,6 +15,7 @@
 <body>
     <div class="book_adder_section">
         <form action="" class="book_adder" id="book_adder">
+            <button class="close" id="close_window"><span class="material-icons"> close </span></button>
             <h2 class="form_title">Add Book</h2>
             <div>
                 <label for="book_title">Book title*</label>
@@ -50,7 +51,7 @@
             </div>
         </form>
     </div>
-    <button class="add_book">+</button>
+    <button class="add_book" id="add_book">+</button>
     <header>
         <div class="logo">
             <span class="material-icons-outlined">library_books</span>
@@ -59,11 +60,11 @@
         <div class="library_log">
             <h2>Library Log</h2>
             <h3>Total books count:</h3>
-            <h3><span id="books_count">3</span></h3>
+            <h3><span id="books_total">0</span></h3>
             <h3>Read:</h3>
-            <h3><span id="books_count">1</span></h3>
+            <h3><span id="books_read">0</span></h3>
             <h3>Not read:</h3>
-            <h3><span id="books_count">2</span></h3>
+            <h3><span id="books_not_read">0</span></h3>
         </div>
     </header>
     <main>
