@@ -370,7 +370,15 @@ header {
     flex: 1;
 }
 
-.book_adder_section .close {
-    transition: none;
+.close_window {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    scale: 0.8;
+    transition: 0.25s;
+}
+
+.close_window:hover {
     transform: scale(1.2);
 }

@@ -46,9 +46,7 @@ BookShelf.prototype.removeBookFromLibrary = function(number) {
 }
 
 BookShelf.prototype.toggleReadState = function(number) {
-    console.log(this.initialBookCollection[number].read)
     this.initialBookCollection[number].read = this.initialBookCollection[number].read ? false : true;
-    console.log(this.initialBookCollection[number].read)
     bookShelf.renderLibraryLog();
 }
 
@@ -118,15 +116,21 @@ closeButtons.forEach(closeButton => {
 const addBookButton = document.querySelector('#add_book');
 const bookAdderSection = document.querySelector('.book_adder_section');
 
-
 addBookButton.addEventListener("click", e => {
     bookAdderSection.classList.add("visible");      
 })
 
-
+const bookAdder = document.querySelector('.book_adder');
 const closeWindowButton = document.querySelector('#close_window');
 
 closeWindowButton.addEventListener("click", e => {
     e.preventDefault();
     bookAdderSection.classList.remove("visible");      
+})
+
+bookAdderSection.addEventListener("click", e => {
+    console.log(e.target != bookAdder)
+    if (e.target != bookAdder) {
+        bookAdderSection.classList.remove("visible");   
+    }
 })
