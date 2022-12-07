@@ -19,30 +19,30 @@
             <h2 class="form_title">Add Book</h2>
             <div>
                 <label for="book_title">Book title*</label>
-                <input type="text" name="book_title" id="book_title">
+                <input required type="text" name="book_title" id="book_title">
             </div>
             <div>
                 <label for="book_author">Book author*</label>
-                <input type="text" name="book_author" id="book_author">
+                <input required type="text" name="book_author" id="book_author">
             </div>
             <div>
                 <label for="book_number_of_pages">Number of pages*</label>
-                <input type="number" name="book_number_of_pages" id="book_number_of_pages">
+                <input required type="number" name="book_number_of_pages" id="book_number_of_pages">
             </div>
             <div>
                 <label for="book_language">Language*</label>
-                <input type="text" name="book_language" id="book_language">
+                <input required type="text" name="book_language" id="book_language">
             </div>
             <div>
                 <label for="book_publishing_date">Publishing date*</label>
-                <input type="date" name="book_publishing_date" id="book_publishing_date">
+                <input required type="date" name="book_publishing_date" id="book_publishing_date">
             </div>
             <div>
                 <label for="book_status">Book status*</label>
-                <select name="book_status" id="book_status">
+                <select required name="book_status" id="book_status">
                     <option value="null" disabled selected>Have you read this book?</option>
-                    <option value="null"> I have already read it</option>
-                    <option value="null">I have not yet read it</option>
+                    <option value="true"> I have already read it</option>
+                    <option value="false">I have not yet read it</option>
                 </select>
             </div>
             <div class="form_buttons">

@@ -92,7 +92,7 @@ bookShelf.renderBooks();
 
 bookShelf.renderLibraryLog();
 
-////
+///
 
 const checkboxes = document.querySelectorAll('.read_checkbox');
 
@@ -129,8 +129,27 @@ closeWindowButton.addEventListener("click", e => {
 })
 
 bookAdderSection.addEventListener("click", e => {
-    console.log(e.target != bookAdder)
-    if (e.target != bookAdder) {
+    if (e.target == bookAdderSection) {
         bookAdderSection.classList.remove("visible");   
     }
+})
+
+///
+
+const finalAddBookButton = document.querySelector("#add");
+const clearFieldsButton = document.querySelector("#clear");
+
+finalAddBookButton.addEventListener("click", e => {
+    e.preventDefault();
+})
+
+clearFieldsButton.addEventListener("click", e => {
+    e.preventDefault();
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach(input => {
+        input.value = null;
+    })
+
+    const selectObject = document.querySelector("select");
+    selectObject.value = null;
 })
