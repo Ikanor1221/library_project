@@ -1,10 +1,10 @@
 
-function Book(title, author, pages, language, year, read) {
+function Book(title, author, pages, language, published, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.language = language;
-    this.year = year;
+    this.published = published;
     this.read = read;
 }
 
@@ -20,7 +20,7 @@ Book.prototype.generateHTML = function(bookNumber) {
         <p>By: <span id="author">${this.author}</span></p>
         <p>Number of pages: <span id="pages">${this.pages}</span></p>
         <p>Language: <span id="language">${this.language}</span></p>
-        <p>Published: <span id="pubYear">${this.year}</span></p>
+        <p>Published: <span id="pubYear">${this.published}</span></p>
         <div class="reading-state">
             <span>Mark as read: </span>
             <label for="reading-input${bookNumber}">
@@ -78,9 +78,9 @@ BookShelf.prototype.renderLibraryLog = function(book) {
 }
 
 
-const book1 = new Book("Book of Knowledge Part 1: Story of Fire and Ice", "Ilia Bochkov", 200, "English", 1997, true)
-const book2 = new Book("Book of Knowledge Part 2: Story of Fire and Ice and Stuff", "Ilia Bochkov", 200, "English", 1999, false)
-const book3 = new Book("Book of Knowledge Part 3: Story of Fire and Ice and More Stuff", "Ilia Bochkov", 200, "English", 2004, false)
+const book1 = new Book("Book of Knowledge Part 1: Story of Fire and Ice", "Ilia Bochkov", 200, "English", "02-12-1997", true)
+const book2 = new Book("Book of Knowledge Part 2: Story of Fire and Ice and Stuff", "Ilia Bochkov", 200, "English", "24-10-1999", false)
+const book3 = new Book("Book of Knowledge Part 3: Story of Fire and Ice and More Stuff", "Ilia Bochkov", 200, "English", "22-02-2002", false)
 
 const bookShelf = new BookShelf();
 
@@ -100,7 +100,6 @@ checkboxes.forEach(checkbox => {
     checkbox.addEventListener("click", e => {
         checkbox.nextElementSibling.classList.toggle("read");
         checkbox.closest(".book").classList.toggle("read");  
-        // console.log(checkbox.closest(".book").id.substring(4));
         bookShelf.toggleReadState(Number(checkbox.closest(".book").id.substring(4)));    
     })
 })
@@ -139,17 +138,42 @@ bookAdderSection.addEventListener("click", e => {
 const finalAddBookButton = document.querySelector("#add");
 const clearFieldsButton = document.querySelector("#clear");
 
+const bookTitle = document.querySelector("#book_title");
+const bookAuthor = document.querySelector("#book_author");
+const bookNumberOfPages = document.querySelector("#book_number_of_pages");
+const bookLanguage = document.querySelector("#book_language");
+const bookPublishingDate = document.querySelector("#book_publishing_date");
+const bookStatus = document.querySelector("#book_status");
+
 finalAddBookButton.addEventListener("click", e => {
     e.preventDefault();
+    const newBook = new Book (bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, dateConverter(bookPublishingDate.value), bookStatus.value);
+    console.log(newBook);
+    bookShelf.addBookToLibrary(newBook);
+    bookShelf.renderBooks();
+    clearFields();
+    // bookAdderSection.classList.remove("visible");
 })
 
 clearFieldsButton.addEventListener("click", e => {
     e.preventDefault();
+    clearFields();
+})
+
+function clearFields() {
+
     const inputs = document.querySelectorAll("input");
     inputs.forEach(input => {
         input.value = null;
     })
-
     const selectObject = document.querySelector("select");
     selectObject.value = null;
-})
+
+    return
+}
+
+function dateConverter(date) {
+    
+    let convertedDate = `${date.substring(8, 10)}-${date.substring(5, 7)}-${date.substring(0, 4)}`;
+    return convertedDate;
+}

@@ -34,7 +34,7 @@ body {
 
 .add_book {
     position: absolute;
-    bottom: 30px;
+    bottom: 40px;
     right: 30px;
     font-size: 3rem;
     background: var(--button-color);
@@ -48,6 +48,7 @@ body {
     cursor: pointer;
     scale: 0.8;
     transition: 0.25s;
+    z-index: 998;
 }
 
 .add_book:hover {
@@ -286,8 +287,11 @@ header {
     font-weight: 200;
 }
 
+
+
 .book_adder_section{
-    position: absolute;
+    position: fixed;
+
     width: 100vw;
     height: 100vh;
     z-index: 999;
