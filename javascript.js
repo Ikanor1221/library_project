@@ -26,7 +26,7 @@ Book.prototype.generateHTML = function(bookNumber) {
         <p>By: <span id="author">${this.author}</span></p>
         <p>Number of pages: <span id="pages">${this.pages}</span></p>
         <p>Language: <span id="language">${this.language}</span></p>
-        <p>Published: <span id="pubYear">${this.published}</span></p>
+        <p>Published: <span id="pubYear">${GBdate.format(this.published)}</span></p>
         <div class="reading-state">
             <span>Mark as read: </span>
             <label for="reading-input${bookNumber}">
@@ -65,9 +65,22 @@ BookShelf.prototype.toggleReadState = function(number) {
 BookShelf.prototype.renderBooks = function() {
     const display = document.querySelector('.book-display');
     display.innerHTML = "";
-    for (let book in this.initialBookCollection) {
-        display.insertAdjacentHTML("beforeend", this.initialBookCollection[book].generateHTML(book))
-    }    
+    const orderElement = document.querySelector('#order');
+    if (orderElement.value == "ascending") {
+        for (let number in this.initialBookCollection) {
+            display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML(number));
+        }
+    }
+    if (orderElement.value == "descending") {
+        console.log(this.initialBookCollection.length - 1)
+        for (let number = (this.initialBookCollection.length - 1); number >= 0; number--) {
+            display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML(number));
+        }
+    }
+    bookShelf.renderLibraryLog();
+    listenToCheckboxes();
+    listenToCloseButtons();
+    return
 }
 
 // Render the library log according to the condition of the books in the bookShelf
@@ -89,6 +102,11 @@ BookShelf.prototype.renderLibraryLog = function(book) {
     } 
 }
 
+// Setup date formatter for EU and GB region
+const GBdate = new Intl.DateTimeFormat("en-GB", {});
+
+// console.log(GBdate.format(new Date("12-02-1997")))
+
 /// Declare functions
 // Clear all the fields in the form- migth be converted to the method of the Form object constructor
 function clearFields() {
@@ -101,18 +119,11 @@ function clearFields() {
     return
 }
 
-
-// Convert the date received from the vanilla date selector to the EU format
-function dateConverter(date) {
-    let convertedDate = `${date.substring(8, 10)}-${date.substring(5, 7)}-${date.substring(0, 4)}`;
-    return convertedDate;
-}
-
 /// Declare objects
 // Create initial books, add them to created bookShelf and render the object on the screen with log and book display
-const book1 = new Book("Book of Knowledge Part 1: Story of Fire and Ice", "Ilia Bochkov", 200, "English", "02-12-1997", true)
-const book2 = new Book("Book of Knowledge Part 2: Story of Fire and Ice and Stuff", "Ilia Bochkov", 200, "English", "24-10-1999", false)
-const book3 = new Book("Book of Knowledge Part 3: Story of Fire and Ice and More Stuff", "Ilia Bochkov", 200, "English", "22-02-2002", false)
+const book1 = new Book("Book of Knowledge Part 1: Story of Fire and Ice", "Ilia Bochkov", 200, "English", new Date("12-02-1997"), true)
+const book2 = new Book("Book of Knowledge Part 2: Story of Fire and Ice and Stuff", "Ilia Bochkov", 200, "English", new Date("10-24-1999"), false)
+const book3 = new Book("Book of Knowledge Part 3: Story of Fire and Ice and More Stuff", "Ilia Bochkov", 200, "English", new Date("02-22-2002"), false)
 
 const bookShelf = new BookShelf();
 
@@ -121,7 +132,6 @@ bookShelf.addBookToLibrary(book2);
 bookShelf.addBookToLibrary(book3);
 
 bookShelf.renderBooks();
-bookShelf.renderLibraryLog();
 
 /// Create event listeners
 // Collect all checkboxes and attach event liestener to them so the read state can be changed from the UI both graphically and logically
@@ -137,25 +147,23 @@ function listenToCheckboxes() {
     })
 }
 
-listenToCheckboxes();
-
-// Collect all closing buttons and attach event listeners to them so the book is removed from the shelf both graphically and logically (!)
+// Collect all closing buttons and attach event listeners to them so the book is removed from the shelf both graphically and logically
 // This code is wrapped in a function for further usage
 function listenToCloseButtons() {
     const closeButtons = document.querySelectorAll('.close');
     closeButtons.forEach(closeButton => {
         closeButton.addEventListener("click", e => {
             bookShelf.removeBookFromLibrary(Number(closeButton.closest(".book").id.substring(4)));
-            bookShelf.renderBooks();
-            bookShelf.renderLibraryLog();
-            listenToCheckboxes();
-            listenToCloseButtons();
-            // closeButton.closest(".book").remove();
+            bookShelf.renderBooks();            
         })
     })
 }
 
-listenToCloseButtons()
+const orderElement = document.querySelector('#order');
+orderElement.addEventListener("change", e => {
+    e.preventDefault();
+    bookShelf.renderBooks();      
+})
 
 /// Handle the new book form
 // Find the button for adding the book and make book_adder_section visible on click
@@ -192,13 +200,10 @@ let bookStatus = document.querySelector("#book_status");
 // Logically and visually add new book to the library on click (!)- unnecessery repetiton
 finalAddBookButton.addEventListener("click", e => {
     e.preventDefault();
-    const newBook = new Book (bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, dateConverter(bookPublishingDate.value), bookStatus.value);
+    const newBook = new Book (bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, new Date(bookPublishingDate.value), bookStatus.value);
     bookShelf.addBookToLibrary(newBook);
     bookShelf.renderBooks();
-    bookShelf.renderLibraryLog();
     clearFields();
-    listenToCheckboxes();
-    listenToCloseButtons();
 })
 
 
