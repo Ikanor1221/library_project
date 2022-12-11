@@ -30,8 +30,8 @@ Book.prototype.generateHTML = function(bookNumber) {
         <p>Published: <span id="pubYear">${GBdate.format(this.published)}</span></p>
         <div class="reading-state">
             <span>Mark as read: </span>
-            <label for="reading-input${bookNumber}">
-                <input ${checked} type="checkbox" class="read_checkbox" id="reading-input${bookNumber}">
+            <label for="reading-input${this.index}">
+                <input ${checked} type="checkbox" class="read_checkbox" id="reading-input${this.index}">
                 <span class="control  ${read}"></span>
             </label>
         </div>
@@ -154,13 +154,14 @@ bookShelf.renderBooks();
 
 /// Create event listeners
 // Collect all checkboxes and attach event liestener to them so the read state can be changed from the UI both graphically and logically
-// This code is wrapped in a function for further usage
+// This code is wrapped in a function for further usage (!)-toggle by index! Maybe implement it via sorted array!
 function listenToCheckboxes() {
     const checkboxes = document.querySelectorAll('.read_checkbox');
     checkboxes.forEach(checkbox => {
     checkbox.addEventListener("click", e => {
         checkbox.nextElementSibling.classList.toggle("read");
         checkbox.closest(".book").classList.toggle("read");  
+        console.log(Number(checkbox.closest(".book").id.substring(4)))
         bookShelf.toggleReadState(Number(checkbox.closest(".book").id.substring(4)));    
         })
     })
