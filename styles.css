@@ -33,7 +33,7 @@ body {
 }
 
 .add_book {
-    position: absolute;
+    position: fixed;
     bottom: 40px;
     right: 30px;
     font-size: 3rem;
@@ -99,6 +99,11 @@ h4 {
     align-content: start;
     position: relative;
     background: var(--not-read-color);
+}
+
+.book:hover {
+    transition: 0.2s;
+    transform: scale(1.02);
 }
 
 
@@ -178,6 +183,9 @@ input:checked ~ .control::after {
 }
 
 .settings {
+    position: sticky;
+    top: 0;
+    z-index: 998;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
