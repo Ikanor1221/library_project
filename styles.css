@@ -87,7 +87,7 @@ h4 {
     align-self: start;
 }
 
-.book-display > div {
+.book {
     border: solid 1px var(--secondary-color);
     border-radius: 10px;
     display: grid;
@@ -107,7 +107,7 @@ h4 {
 }
 
 
-.book-display > div > *{
+.book > * {
     overflow-wrap: break-word;
     -ms-hyphens: auto;
     -webkit-hyphens: auto; 
@@ -132,6 +132,12 @@ h4 {
     transform: scale(1.2) rotate(90deg);
 }
 
+.book_number {
+    position: absolute;
+    top: 9px;
+    left: 15px;
+    scale: 0.8;
+}
 
 .reading-state {
     position: absolute;

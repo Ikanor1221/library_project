@@ -20,6 +20,7 @@ Book.prototype.generateHTML = function(bookNumber) {
     }
     const book_html_template = `
     <div class="book ${read}" id="book${bookNumber}">
+        <p class="book_number">${Number(bookNumber)+1}</p>
         <button class="close"><span class="material-icons remove-book"> close </span></button>
         <h4 id="title">${this.title}</h4>
         <p>By: <span id="author">${this.author}</span></p>
@@ -49,7 +50,9 @@ BookShelf.prototype.addBookToLibrary = function(book) {
 }
 
 BookShelf.prototype.removeBookFromLibrary = function(number) {
-    this.initialBookCollection.remove(number);
+    // console.log(this.initialBookCollection.splice(number, 1))
+    this.initialBookCollection.splice(number, 1);
+    console.log(this.initialBookCollection)
 }
 
 // Change the read state of the given book to the opposite one and render the log accordingly
@@ -89,7 +92,6 @@ BookShelf.prototype.renderLibraryLog = function(book) {
 /// Declare functions
 // Clear all the fields in the form- migth be converted to the method of the Form object constructor
 function clearFields() {
-
     const inputs = document.querySelectorAll("input");
     inputs.forEach(input => {
         input.value = null;
@@ -138,11 +140,17 @@ function listenToCheckboxes() {
 listenToCheckboxes();
 
 // Collect all closing buttons and attach event listeners to them so the book is removed from the shelf both graphically and logically (!)
+// This code is wrapped in a function for further usage
 function listenToCloseButtons() {
     const closeButtons = document.querySelectorAll('.close');
     closeButtons.forEach(closeButton => {
         closeButton.addEventListener("click", e => {
-            closeButton.closest(".book").remove();
+            bookShelf.removeBookFromLibrary(Number(closeButton.closest(".book").id.substring(4)));
+            bookShelf.renderBooks();
+            bookShelf.renderLibraryLog();
+            listenToCheckboxes();
+            listenToCloseButtons();
+            // closeButton.closest(".book").remove();
         })
     })
 }
@@ -181,7 +189,7 @@ let bookLanguage = document.querySelector("#book_language");
 let bookPublishingDate = document.querySelector("#book_publishing_date");
 let bookStatus = document.querySelector("#book_status");
 
-// Logically and visually add new book to the library on click 
+// Logically and visually add new book to the library on click (!)- unnecessery repetiton
 finalAddBookButton.addEventListener("click", e => {
     e.preventDefault();
     const newBook = new Book (bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, dateConverter(bookPublishingDate.value), bookStatus.value);
