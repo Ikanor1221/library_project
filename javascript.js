@@ -1,13 +1,14 @@
 
 /// Declare object constructors
 // Object constuctor for the Book
-function Book(title, author, pages, language, published, read) {
+function Book(title, author, pages, language, published, read, index) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.language = language;
     this.published = published;
     this.read = read;
+    this.index = index;
 }
 
 //Method for generating the HTML code for the given book
@@ -19,8 +20,8 @@ Book.prototype.generateHTML = function(bookNumber) {
         read = "read";
     }
     const book_html_template = `
-    <div class="book ${read}" id="book${bookNumber}">
-        <p class="book_number">${Number(bookNumber)+1}</p>
+    <div class="book ${read}" id="book${this.index}">
+        <p class="book_number">#${this.index+1}</p>
         <button class="close"><span class="material-icons remove-book"> close </span></button>
         <h4 id="title">${this.title}</h4>
         <p>By: <span id="author">${this.author}</span></p>
@@ -42,7 +43,7 @@ Book.prototype.generateHTML = function(bookNumber) {
 // Object constructor for the bookshelf- the object that holds and controls the entirety of the library
 function BookShelf() {
     this.initialBookCollection = [];
-    this.sortedBookCollection = [];
+    // this.sortedBookCollection = [];
 }
 
 BookShelf.prototype.addBookToLibrary = function(book) {
@@ -66,15 +67,31 @@ BookShelf.prototype.renderBooks = function() {
     const display = document.querySelector('.book-display');
     display.innerHTML = "";
     const orderElement = document.querySelector('#order');
-    if (orderElement.value == "ascending") {
-        for (let number in this.initialBookCollection) {
-            display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML(number));
+    const orderByElement = document.querySelector('#order_by');
+    if (orderByElement.value == "insertion_date") {
+        if (orderElement.value == "ascending") {
+            for (let number in this.initialBookCollection) {
+                display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML());
+            }
+        }
+        if (orderElement.value == "descending") {
+            for (let number = (this.initialBookCollection.length - 1); number >= 0; number--) {
+                display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML());
+            }
         }
     }
-    if (orderElement.value == "descending") {
-        console.log(this.initialBookCollection.length - 1)
-        for (let number = (this.initialBookCollection.length - 1); number >= 0; number--) {
-            display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML(number));
+    if (orderByElement.value == "publishing_date") {
+        if (orderElement.value == "ascending") {
+            const sortedCollection = this.initialBookCollection.slice().sort((a, b) => a.published - b.published);
+            for (let number in sortedCollection) {
+                display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML());
+            }
+        }
+        if (orderElement.value == "descending") {
+            const sortedCollection = this.initialBookCollection.slice().sort((a, b) => a.published - b.published)
+            for (let number = (sortedCollection.length - 1); number >= 0; number--) {
+                display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML());
+            }
         }
     }
     bookShelf.renderLibraryLog();
@@ -121,15 +138,17 @@ function clearFields() {
 
 /// Declare objects
 // Create initial books, add them to created bookShelf and render the object on the screen with log and book display
-const book1 = new Book("Book of Knowledge Part 1: Story of Fire and Ice", "Ilia Bochkov", 200, "English", new Date("12-02-1997"), true)
-const book2 = new Book("Book of Knowledge Part 2: Story of Fire and Ice and Stuff", "Ilia Bochkov", 200, "English", new Date("10-24-1999"), false)
-const book3 = new Book("Book of Knowledge Part 3: Story of Fire and Ice and More Stuff", "Ilia Bochkov", 200, "English", new Date("02-22-2002"), false)
+const book1 = new Book("Book of Knowledge Part 1: Story of Fire and Ice", "Ilia Bochkov", 200, "English", new Date("12-02-1997"), true, 0)
+const book2 = new Book("This Book is Great!", "Ilia Bochkov", 200, "English", new Date("03-12-2011"), false, 1)
+const book3 = new Book("Book of Knowledge Part 2: Story of Fire and Ice and Stuff", "Ilia Bochkov", 200, "English", new Date("10-24-1999"), false, 2)
+const book4 = new Book("Book of Knowledge Part 3: Story of Fire and Ice and More Stuff", "Ilia Bochkov", 200, "English", new Date("02-22-2002"), true, 3)
 
 const bookShelf = new BookShelf();
 
 bookShelf.addBookToLibrary(book1);
 bookShelf.addBookToLibrary(book2);
 bookShelf.addBookToLibrary(book3);
+bookShelf.addBookToLibrary(book4);
 
 bookShelf.renderBooks();
 
@@ -161,6 +180,12 @@ function listenToCloseButtons() {
 
 const orderElement = document.querySelector('#order');
 orderElement.addEventListener("change", e => {
+    e.preventDefault();
+    bookShelf.renderBooks();      
+})
+
+const orderByElement = document.querySelector('#order_by');
+orderByElement.addEventListener("change", e => {
     e.preventDefault();
     bookShelf.renderBooks();      
 })
@@ -200,7 +225,7 @@ let bookStatus = document.querySelector("#book_status");
 // Logically and visually add new book to the library on click (!)- unnecessery repetiton
 finalAddBookButton.addEventListener("click", e => {
     e.preventDefault();
-    const newBook = new Book (bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, new Date(bookPublishingDate.value), bookStatus.value);
+    const newBook = new Book (bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, new Date(bookPublishingDate.value), bookStatus.value, bookShelf.length);
     bookShelf.addBookToLibrary(newBook);
     bookShelf.renderBooks();
     clearFields();
