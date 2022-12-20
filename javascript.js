@@ -1,14 +1,15 @@
+//Fix bug with removed book index and with field validation
+
 
 /// Declare object constructors
 // Object constuctor for the Book
-function Book(title, author, pages, language, published, read, index) {
+function Book(title, author, pages, language, published, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.language = language;
     this.published = published;
     this.read = read;
-    this.index = index;
 }
 
 //Method for generating the HTML code for the given book
@@ -19,9 +20,10 @@ Book.prototype.generateHTML = function(bookNumber) {
         checked = "checked";
         read = "read";
     }
+
     const book_html_template = `
-    <div class="book ${read}" id="book${this.index}">
-        <p class="book_number">#${this.index+1}</p>
+    <div class="book ${read}" id="book${bookNumber}">
+        <p class="book_number">#${Number(bookNumber)+1}</p>
         <button class="close"><span class="material-icons remove-book"> close </span></button>
         <h4 id="title">${this.title}</h4>
         <p>By: <span id="author">${this.author}</span></p>
@@ -30,8 +32,8 @@ Book.prototype.generateHTML = function(bookNumber) {
         <p>Published: <span id="pubYear">${GBdate.format(this.published)}</span></p>
         <div class="reading-state">
             <span>Mark as read: </span>
-            <label for="reading-input${this.index}">
-                <input ${checked} type="checkbox" class="read_checkbox" id="reading-input${this.index}">
+            <label for="reading-input${bookNumber}">
+                <input ${checked} type="checkbox" class="read_checkbox" id="reading-input${bookNumber}">
                 <span class="control  ${read}"></span>
             </label>
         </div>
@@ -51,9 +53,7 @@ BookShelf.prototype.addBookToLibrary = function(book) {
 }
 
 BookShelf.prototype.removeBookFromLibrary = function(number) {
-    // console.log(this.initialBookCollection.splice(number, 1))
     this.initialBookCollection.splice(number, 1);
-    console.log(this.initialBookCollection)
 }
 
 // Change the read state of the given book to the opposite one and render the log accordingly
@@ -71,12 +71,12 @@ BookShelf.prototype.renderBooks = function() {
     if (orderByElement.value == "insertion_date") {
         if (orderElement.value == "ascending") {
             for (let number in this.initialBookCollection) {
-                display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML());
+                display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML(number));
             }
         }
         if (orderElement.value == "descending") {
             for (let number = (this.initialBookCollection.length - 1); number >= 0; number--) {
-                display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML());
+                display.insertAdjacentHTML("beforeend", this.initialBookCollection[number].generateHTML(number));
             }
         }
     }
@@ -84,13 +84,13 @@ BookShelf.prototype.renderBooks = function() {
         if (orderElement.value == "ascending") {
             const sortedCollection = this.initialBookCollection.slice().sort((a, b) => a.published - b.published);
             for (let number in sortedCollection) {
-                display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML());
+                display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML(number));
             }
         }
         if (orderElement.value == "descending") {
             const sortedCollection = this.initialBookCollection.slice().sort((a, b) => a.published - b.published)
             for (let number = (sortedCollection.length - 1); number >= 0; number--) {
-                display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML());
+                display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML(number));
             }
         }
     }
@@ -122,8 +122,6 @@ BookShelf.prototype.renderLibraryLog = function(book) {
 // Setup date formatter for EU and GB region
 const GBdate = new Intl.DateTimeFormat("en-GB", {});
 
-// console.log(GBdate.format(new Date("12-02-1997")))
-
 /// Declare functions
 // Clear all the fields in the form- migth be converted to the method of the Form object constructor
 function clearFields() {
@@ -138,10 +136,10 @@ function clearFields() {
 
 /// Declare objects
 // Create initial books, add them to created bookShelf and render the object on the screen with log and book display
-const book1 = new Book("Book of Knowledge Part 1: Story of Fire and Ice", "Ilia Bochkov", 200, "English", new Date("12-02-1997"), true, 0)
-const book2 = new Book("This Book is Great!", "Ilia Bochkov", 200, "English", new Date("03-12-2011"), false, 1)
-const book3 = new Book("Book of Knowledge Part 2: Story of Fire and Ice and Stuff", "Ilia Bochkov", 200, "English", new Date("10-24-1999"), false, 2)
-const book4 = new Book("Book of Knowledge Part 3: Story of Fire and Ice and More Stuff", "Ilia Bochkov", 200, "English", new Date("02-22-2002"), true, 3)
+const book1 = new Book("Book of Knowledge Part 1: Story of Fire and Ice", "Ilia Bochkov", 200, "English", new Date("12-02-1997"), true)
+const book2 = new Book("This Book is Great!", "Ilia Bochkov", 200, "English", new Date("03-12-2011"), false)
+const book3 = new Book("Book of Knowledge Part 2: Story of Fire and Ice and Stuff", "Ilia Bochkov", 200, "English", new Date("10-24-1999"), false)
+const book4 = new Book("Book of Knowledge Part 3: Story of Fire and Ice and More Stuff", "Ilia Bochkov", 200, "English", new Date("02-22-2002"), true)
 
 const bookShelf = new BookShelf();
 
@@ -161,7 +159,6 @@ function listenToCheckboxes() {
     checkbox.addEventListener("click", e => {
         checkbox.nextElementSibling.classList.toggle("read");
         checkbox.closest(".book").classList.toggle("read");  
-        console.log(Number(checkbox.closest(".book").id.substring(4)))
         bookShelf.toggleReadState(Number(checkbox.closest(".book").id.substring(4)));    
         })
     })
@@ -226,12 +223,24 @@ let bookStatus = document.querySelector("#book_status");
 // Logically and visually add new book to the library on click (!)- unnecessery repetiton
 finalAddBookButton.addEventListener("click", e => {
     e.preventDefault();
-    const newBook = new Book (bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, new Date(bookPublishingDate.value), bookStatus.value, bookShelf.length);
+    if (checkFields(bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, bookPublishingDate.value)) return;
+    const newBook = new Book (bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, new Date(bookPublishingDate.value), bookStatus.value);
+    // bookShelf.initialBookCollection[bookShelf.initialBookCollection.length-1].index+1
     bookShelf.addBookToLibrary(newBook);
     bookShelf.renderBooks();
     clearFields();
 })
 
+function checkFields(...params) {
+    let isEmpty = false;
+    for (const i in params) {
+        if (params[i] == "") {
+            isEmpty = true;
+        }
+
+    }
+    return isEmpty;
+}
 
 // Find form's Clear fields button listen to the clicks to invoke the clearFields function
 const clearFieldsButton = document.querySelector("#clear");
@@ -241,3 +250,9 @@ clearFieldsButton.addEventListener("click", e => {
     clearFields();
 })
 
+// Book addition form's validation (make sure that everything is filled, otherwise it breaks without any date)- this one to do now!
+
+// Also add ability to modify existing cards, otherwise feel too hard to control
+// So by pushing modify button take object's property, populate and open new book form, allow to modify, accept and validate changes and then close with saving them
+
+// I belive I will just come back to this one and make it look as good as possible, for now I may move forward, I belive.
