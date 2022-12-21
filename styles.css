@@ -348,7 +348,7 @@ header {
     align-items: flex-start;
     gap: 3px;
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 
 .book_adder > div * {
@@ -399,4 +399,15 @@ header {
 
 .close_window:hover {
     transform: scale(1.2);
+}
+
+.book_adder .error_message{
+    color: red;
+    font-size: 1rem;
+    opacity: 0;
+    transition: 1s ease-out;
+}
+
+.book_adder .empty + .error_message{
+    opacity: 1;
 }

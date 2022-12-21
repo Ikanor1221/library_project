@@ -1,6 +1,3 @@
-//Fix bug with removed book index and with field validation
-
-
 /// Declare object constructors
 // Object constuctor for the Book
 function Book(title, author, pages, language, published, read) {
@@ -81,13 +78,7 @@ BookShelf.prototype.renderBooks = function() {
         }
     }
     if (orderByElement.value == "publishing_date") {
-        if (orderElement.value == "ascending") {
-            const sortedCollection = this.initialBookCollection.slice().sort((a, b) => a.published - b.published);
-            for (let number in sortedCollection) {
-                display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML(number));
-            }
-        }
-        if (orderElement.value == "descending") {
+        if (orderElement.value == "ascinitialBookCollectioncending") {
             const sortedCollection = this.initialBookCollection.slice().sort((a, b) => a.published - b.published)
             for (let number = (sortedCollection.length - 1); number >= 0; number--) {
                 display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML(number));
@@ -223,7 +214,7 @@ let bookStatus = document.querySelector("#book_status");
 // Logically and visually add new book to the library on click (!)- unnecessery repetiton
 finalAddBookButton.addEventListener("click", e => {
     e.preventDefault();
-    if (checkFields(bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, bookPublishingDate.value)) return;
+    if (checkFields(bookTitle, bookAuthor, bookNumberOfPages, bookLanguage, bookPublishingDate)) return;
     const newBook = new Book (bookTitle.value, bookAuthor.value, bookNumberOfPages.value, bookLanguage.value, new Date(bookPublishingDate.value), bookStatus.value);
     // bookShelf.initialBookCollection[bookShelf.initialBookCollection.length-1].index+1
     bookShelf.addBookToLibrary(newBook);
@@ -231,12 +222,16 @@ finalAddBookButton.addEventListener("click", e => {
     clearFields();
 })
 
+
+//Check fields of the form, stop addition if empty field is encountered, indicate it on screen
 function checkFields(...params) {
     let isEmpty = false;
     for (const i in params) {
-        if (params[i] == "") {
+        if (params[i].value == "") {
             isEmpty = true;
+            params[i].classList.add("empty")
         }
+        else params[i].classList.remove("empty");
 
     }
     return isEmpty;
