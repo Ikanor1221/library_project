@@ -78,7 +78,13 @@ BookShelf.prototype.renderBooks = function() {
         }
     }
     if (orderByElement.value == "publishing_date") {
-        if (orderElement.value == "ascinitialBookCollectioncending") {
+        if (orderElement.value == "ascending") {
+            const sortedCollection = this.initialBookCollection.slice().sort((a, b) => a.published - b.published);
+            for (let number in sortedCollection) {
+                display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML(number));
+            }
+        }
+        if (orderElement.value == "descending") {
             const sortedCollection = this.initialBookCollection.slice().sort((a, b) => a.published - b.published)
             for (let number = (sortedCollection.length - 1); number >= 0; number--) {
                 display.insertAdjacentHTML("beforeend", sortedCollection[number].generateHTML(number));
